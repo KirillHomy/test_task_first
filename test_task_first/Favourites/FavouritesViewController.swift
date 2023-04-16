@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FavouritesViewController.swift
 //  test_task_first
 //
 //  Created by Kirill Khomytsevych on 09.04.2023.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class FavouritesViewController: UIViewController {
 
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        view.backgroundColor = .black
     }
 
-
 }
-

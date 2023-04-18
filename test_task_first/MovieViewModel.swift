@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class MovieViewModel {
 
@@ -27,6 +28,25 @@ class MovieViewModel {
 
     func movieModel() -> MovieModel? {
         model
+    }
+
+    func downloadImage(from url: String, to imageView: UIImageView) {
+        guard let imageURL = URL(string: "\(Constants.prefixPhoto)\(url)") else { return }
+        let task = URLSession.shared.dataTask(with: imageURL) { data, _, error in
+            if let error = error {
+                print("Error downloading image: \(error)")
+                return
+            }
+            guard let data = data else {
+                print("No image data returned")
+                return
+            }
+            DispatchQueue.main.async {
+                let image = UIImage(data: data)
+                imageView.image = image
+            }
+        }
+        task.resume()
     }
 
 }

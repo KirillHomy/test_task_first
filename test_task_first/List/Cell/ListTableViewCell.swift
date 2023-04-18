@@ -11,8 +11,9 @@ import SnapKit
 class ListTableViewCell: UITableViewCell {
 
     // MARK: - Private UI
-    let imageMovie = UIImageView()
-    let label = UILabel()
+    private let imageMovie = UIImageView()
+    private let label = UILabel()
+    private let movieViewModel = MovieViewModel()
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -27,23 +28,7 @@ class ListTableViewCell: UITableViewCell {
 
     // MARK: - Method
     func configurationCell(_ model: MovieModel, _ index: IndexPath) {
-        if let imageURL = URL(string: "https://image.tmdb.org/t/p/w500\(model.results[index.row].backdropPath)") {
-            let task = URLSession.shared.dataTask(with: imageURL) { data, _, error in
-                if let error = error {
-                    print("Error downloading image: \(error)")
-                    return
-                }
-                guard let data = data else {
-                    print("No image data returned")
-                    return
-                }
-                DispatchQueue.main.async {
-                    let image = UIImage(data: data)
-                    self.imageMovie.image = image
-                }
-            }
-            task.resume()
-        }
+        movieViewModel.downloadImage(from: model.results[index.row].backdropPath , to: imageMovie)
         label.text = model.results[index.row].originalTitle
     }
 
@@ -53,9 +38,14 @@ class ListTableViewCell: UITableViewCell {
 private extension ListTableViewCell {
 
     func setupUI() {
+        setupCell()
         setupImage()
         setupLabel()
+    }
+
+    func setupCell() {
         backgroundColor = .clear
+        selectionStyle = .none
     }
 
     func setupImage() {

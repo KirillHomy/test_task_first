@@ -21,6 +21,12 @@ class ListViewController: UIViewController {
         setupUI()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        setupnNvigationController()
+    }
+
 }
 
 // MARK: - Private extension
@@ -30,7 +36,6 @@ private extension ListViewController {
         setupnNvigationController()
         movieViewModel.callService()
         setupTableView()
-        reloadData()
     }
 
     func setupnNvigationController() {
@@ -41,7 +46,7 @@ private extension ListViewController {
         navigationController.navigationBar.isOpaque = true
         navigationItem.title = "List"
         navigationController.navigationBar.prefersLargeTitles = true
-        navigationItem.backButtonTitle = "Back"
+        navigationItem.backButtonTitle = "List"
     }
 
     func setupTableView() {
@@ -49,6 +54,7 @@ private extension ListViewController {
         tableView.delegate = self
         tableView.backgroundColor = .clear
         tableView.register(ListTableViewCell.self, forCellReuseIdentifier: "ListTableViewCell")
+        reloadData()
     }
 
     func reloadData() {
@@ -77,6 +83,17 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         100
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let navController = self.navigationController else { return }
+        let storyboard = UIStoryboard(name: "Details", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
+        if let model = movieViewModel.movieModel() {
+            controller.movieModel = model
+        }
+        controller.indexPath = indexPath
+        navController.pushViewController(controller, animated: true)
     }
 
 }

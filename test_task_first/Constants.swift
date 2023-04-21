@@ -12,4 +12,9 @@ struct Constants {
     static let urlString = "https://api.themoviedb.org/3/movie/popular?api_key=09b1a389fe9a9891ef2596e497a4580f"
     static let prefixPhoto = "https://image.tmdb.org/t/p/w500"
 
+    struct Text {
+        static let list = "List"
+        static let favourites = "Favourites"
+        static let detail = "Detail"
+    }
 }

@@ -18,13 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="286-1s-C23">
-                                <rect key="frame" x="40" y="99" width="313" height="213"/>
+                                <rect key="frame" x="40" y="99" width="313" height="313"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="213" id="CYJ-f4-vuo"/>
+                                    <constraint firstAttribute="height" constant="313" id="CYJ-f4-vuo"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name movie" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9JE-on-VZL">
-                                <rect key="frame" x="126.66666666666669" y="352" width="140" height="25"/>
+                                <rect key="frame" x="126.66666666666669" y="452" width="140" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="D1z-fS-0u2"/>
                                     <constraint firstAttribute="height" constant="25" id="nDE-aH-h75"/>
@@ -34,7 +34,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Np9-no-QTd">
-                                <rect key="frame" x="175.66666666666666" y="382" width="42" height="21"/>
+                                <rect key="frame" x="175.66666666666666" y="482" width="42" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Mcj-by-gST"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="VVD-wE-OuL"/>
@@ -44,7 +44,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lj3-mg-dxa">
-                                <rect key="frame" x="40" y="443" width="313" height="335"/>
+                                <rect key="frame" x="40" y="543" width="313" height="235"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>

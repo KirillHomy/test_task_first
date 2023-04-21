@@ -44,15 +44,16 @@ private extension ListViewController {
         navigationController.navigationBar.shadowImage = UIImage()
         navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.isOpaque = true
-        navigationItem.title = "List"
+        navigationItem.title = Constants.Text.list
         navigationController.navigationBar.prefersLargeTitles = true
-        navigationItem.backButtonTitle = "List"
+        navigationItem.backButtonTitle = Constants.Text.list
     }
 
     func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .clear
+        tableView.separatorInset = .zero
         tableView.register(ListTableViewCell.self, forCellReuseIdentifier: "ListTableViewCell")
         reloadData()
     }
@@ -65,7 +66,7 @@ private extension ListViewController {
 
 }
 
-// MARK: - Name
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

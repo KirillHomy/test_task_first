@@ -49,14 +49,14 @@ private extension DetailsViewController {
         navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.isOpaque = true
         navigationController.navigationBar.prefersLargeTitles = false
-        navigationItem.title = "Detail"
+        navigationItem.title = Constants.Text.detail
         navigationItem.backButtonTitle = ""
     }
 
     func setupImage() {
         guard let model = movieModel,
               let index = indexPath else { return }
-        movieViewModel.downloadImage(from: model.results[index.row].backdropPath , to: imageViewMovie)
+        movieViewModel.downloadImage(from: model.results[index.row].posterPath , to: imageViewMovie)
     }
 
     func setupName() {

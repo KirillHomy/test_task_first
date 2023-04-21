@@ -29,17 +29,18 @@ private extension TabBarController {
     
     func setupUI() {
         // List
-        let listStoryboard = UIStoryboard(name: "ListViewController", bundle: nil)
+        let listStoryboard = UIStoryboard(name: "List", bundle: nil)
         let list: ListViewController = listStoryboard.instantiateViewController(identifier: "ListViewController")
         let listNav = UINavigationController(rootViewController: list)
-        listNav.tabBarItem = UITabBarItem(title: "List",
+        listNav.tabBarItem = UITabBarItem(title: Constants.Text.list,
                                           image: UIImage(systemName: "list.bullet"),
                                           selectedImage: UIImage(systemName: "list.number"))
 
         // Favourites
-        let favourites = FavouritesViewController()
+        let favouritesStoryboard = UIStoryboard(name: "Favourites", bundle: nil)
+        let favourites: FavouritesViewController = favouritesStoryboard.instantiateViewController(identifier: "FavouritesViewController")
         let favouritesNav = UINavigationController(rootViewController: favourites)
-        favouritesNav.tabBarItem = UITabBarItem(title: "Favourites",
+        favouritesNav.tabBarItem = UITabBarItem(title: Constants.Text.favourites,
                                                 image: UIImage(systemName: "star"),
                                                 selectedImage: UIImage(systemName: "star.fill"))
 

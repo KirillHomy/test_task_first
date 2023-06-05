@@ -13,21 +13,26 @@ class MovieViewModel {
     // MARK: - Private variables
     private var model: MovieModel? = nil
 
-    // MARK: - Intrenal method
-    func callService() {
-        ApiManager.shared.retrieveMovies { responce in
-            self.model = responce
+    // MARK: - Internal method
+    func callService(completion: @escaping (Bool) -> Void) {
+        ApiManager.shared.retrieveMovies { [weak self] response in
+            guard let sSelf = self else { return }
+            sSelf.model = response
+            completion(true)
         } fail: {
             print("Error")
+            completion(false)
         }
     }
 
     func numberOfRowsInSection() -> Int {
-        model?.results.count ?? 0
+        guard let model = model else { return 0 }
+
+        return model.results.count
     }
 
     func movieModel() -> MovieModel? {
-        model
+        return model
     }
 
     func downloadImage(from url: String, to imageView: UIImageView) {

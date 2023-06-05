@@ -23,12 +23,24 @@ class ServiceManager {
             guard error == nil else { return }
             guard let data = data else { return }
 
-            let decode = JSONDecoder()
+            let decoder = JSONDecoder()
             do {
-                let json = try decode.decode(T.self, from: data)
+                let json = try decoder.decode(T.self, from: data)
                 success(json)
+            } catch let decodingError as DecodingError {
+                // Обработка ошибки декодирования
+                switch decodingError {
+                case .dataCorrupted(let context):
+                    // Обработка недопустимого значения
+                    print("Invalid value encountered:", context.debugDescription)
+                default:
+                    // Другие ошибки декодирования
+                    fail()
+                }
             } catch {
+                // Другие ошибки
                 fail()
+                print("Error description", error)
             }
         }
         task.resume()

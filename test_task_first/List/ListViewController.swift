@@ -34,7 +34,13 @@ private extension ListViewController {
 
     func setupUI() {
         setupnNvigationController()
-        movieViewModel.callService()
+        movieViewModel.callService { [weak self] isSuccess in
+            guard let sSelf = self else { return }
+
+            if isSuccess {
+                sSelf.reloadData()
+            }
+        }
         setupTableView()
     }
 
@@ -55,7 +61,6 @@ private extension ListViewController {
         tableView.backgroundColor = .clear
         tableView.separatorInset = .zero
         tableView.register(ListTableViewCell.self, forCellReuseIdentifier: "ListTableViewCell")
-        reloadData()
     }
 
     func reloadData() {

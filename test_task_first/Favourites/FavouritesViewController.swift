@@ -72,7 +72,7 @@ private extension FavouritesViewController {
 
     func getFavList() {
         // Извлечение массива словарей из UserDefaults
-        if let resultDictArray = UserDefaults.standard.array(forKey: "favList") as? [[String: Any]] {
+        if let resultDictArray = UserDefaults.standard.array(forKey: Constants.UserDefaults.favouritesList) as? [[String: Any]] {
             // Преобразование массива словарей обратно в массив объектов Result
             favListArray = resultDictArray.compactMap { dict -> Result? in
                 return Result(

@@ -113,7 +113,7 @@ private extension ListViewController {
                 ]
             }
             // Сохранение преобразованного массива в UserDefaults
-            UserDefaults.standard.set(resultDictArray, forKey: "favList")
+            UserDefaults.standard.set(resultDictArray, forKey: Constants.UserDefaults.favouritesList)
         default:
             break
         }

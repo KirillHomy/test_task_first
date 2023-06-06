@@ -9,7 +9,9 @@ import UIKit
 
 class ListViewController: UIViewController {
 
+    // MARK: - Private variables
     private var movieViewModel = MovieViewModel()
+    private var favListArray: [Result] = []
 
     // MARK: - Pravate IBOutlet
      @IBOutlet private weak var tableView: UITableView!
@@ -71,6 +73,53 @@ private extension ListViewController {
 
 }
 
+
+// MARK: - @objc private extension
+@objc private extension ListViewController {
+
+    func cellLongPressed(_ gesture: UILongPressGestureRecognizer) {
+        guard let cell = gesture.view as? UITableViewCell else { return }
+
+        switch gesture.state {
+        case .began:
+            // Обработка начала долгого нажатия на ячейку
+            guard let indexPath = tableView.indexPath(for: cell),
+                  let item = movieViewModel.movieModel()?.results[indexPath.row] else { return }
+
+            // Добавление или удаление элемента из массива фаворитов
+            if favListArray.contains(where: { $0 == item }) {
+                favListArray.removeAll(where: { $0 == item })
+            } else {
+                favListArray.append(item)
+            }
+            // Сохранение массива фаворитов
+            // Преобразование массива объектов Result в массив словарей
+            let resultDictArray = favListArray.map { result -> [String: Any] in
+                return [
+                    "adult": result.adult,
+                    "backdropPath": result.backdropPath,
+                    "genreIDS": result.genreIDS,
+                    "id": result.id,
+                    "originalLanguage": result.originalLanguage,
+                    "originalTitle": result.originalTitle,
+                    "overview": result.overview,
+                    "popularity": result.popularity,
+                    "posterPath": result.posterPath,
+                    "releaseDate": result.releaseDate,
+                    "title": result.title,
+                    "video": result.video,
+                    "voteAverage": result.voteAverage,
+                    "voteCount": result.voteCount
+                ]
+            }
+            // Сохранение преобразованного массива в UserDefaults
+            UserDefaults.standard.set(resultDictArray, forKey: "favList")
+        default:
+            break
+        }
+    }
+}
+
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 
@@ -80,15 +129,16 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as! ListTableViewCell
-
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(cellLongPressed(_:)))
         guard let model = movieViewModel.movieModel() else { return UITableViewCell()}
-        cell.configurationCell(model, indexPath)
 
+        cell.addGestureRecognizer(longPressGesture)
+        cell.configurationCell(model, indexPath)
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        100
+        return 100.0
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

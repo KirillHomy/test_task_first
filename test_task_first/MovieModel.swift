@@ -48,3 +48,10 @@ struct Result: Codable {
         case voteCount = "vote_count"
     }
 }
+
+extension Result: Equatable {
+    static func == (lhs: Result, rhs: Result) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+

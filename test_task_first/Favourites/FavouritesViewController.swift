@@ -9,8 +9,11 @@ import UIKit
 
 class FavouritesViewController: UIViewController {
 
-    // MARK: - Pravate IBOutlet
-     @IBOutlet private weak var tableView: UITableView!
+    // MARK: - Interface constants
+    private var tableView = UITableView()
+
+    // MARK: -  Private variables
+    private var favListArray: [Result] = []
 
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -23,6 +26,7 @@ class FavouritesViewController: UIViewController {
         super.viewWillAppear(animated)
 
         setupnNvigationController()
+        getFavList()
     }
 
 }
@@ -33,6 +37,7 @@ private extension FavouritesViewController {
     func setupUI() {
         setupnNvigationController()
         setupTableView()
+        setupViewColor()
     }
 
     func setupnNvigationController() {
@@ -47,15 +52,48 @@ private extension FavouritesViewController {
     }
 
     func setupTableView() {
+        tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = .black
-        reloadData()
+        tableView.backgroundColor = .clear
+        tableView.register(FavouritesTableViewCell.nib(), forCellReuseIdentifier: "FavouritesTableViewCell")
+        view.addSubview(tableView)
+    }
+
+    func setupViewColor() {
+        view.backgroundColor = .systemBackground
     }
 
     func reloadData() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+
+    func getFavList() {
+        // Извлечение массива словарей из UserDefaults
+        if let resultDictArray = UserDefaults.standard.array(forKey: "favList") as? [[String: Any]] {
+            // Преобразование массива словарей обратно в массив объектов Result
+            favListArray = resultDictArray.compactMap { dict -> Result? in
+                return Result(
+                    adult: dict["adult"] as? Bool ?? false,
+                    backdropPath: dict["backdropPath"] as? String ?? "",
+                    genreIDS: dict["genreIDS"] as? [Int] ?? [],
+                    id: dict["id"] as? Int ?? 0,
+                    originalLanguage: dict["originalLanguage"] as? String ?? "",
+                    originalTitle: dict["originalTitle"] as? String ?? "",
+                    overview: dict["overview"] as? String ?? "",
+                    popularity: dict["popularity"] as? Double ?? 0.0,
+                    posterPath: dict["posterPath"] as? String ?? "",
+                    releaseDate: dict["releaseDate"] as? String ?? "",
+                    title: dict["title"] as? String ?? "",
+                    video: dict["video"] as? Bool ?? false,
+                    voteAverage: dict["voteAverage"] as? Double ?? 0.0,
+                    voteCount: dict["voteCount"] as? Int ?? 0
+                )
+            }
+            reloadData()
+            // Используйте favListArray далее в вашем коде
         }
     }
 
@@ -65,16 +103,18 @@ private extension FavouritesViewController {
 extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        return favListArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavouritesTableViewCell", for: indexPath) as! FavouritesTableViewCell
+        let model = favListArray[indexPath.row]
+        cell.configurationCell(model)
+        return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        100
+        return 100.0
     }
 
 }

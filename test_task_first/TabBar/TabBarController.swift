@@ -37,8 +37,7 @@ private extension TabBarController {
                                           selectedImage: UIImage(systemName: "list.number"))
 
         // Favourites
-        let favouritesStoryboard = UIStoryboard(name: "Favourites", bundle: nil)
-        let favourites: FavouritesViewController = favouritesStoryboard.instantiateViewController(identifier: "FavouritesViewController")
+        let favourites = FavouritesViewController()
         let favouritesNav = UINavigationController(rootViewController: favourites)
         favouritesNav.tabBarItem = UITabBarItem(title: Constants.Text.favourites,
                                                 image: UIImage(systemName: "star"),

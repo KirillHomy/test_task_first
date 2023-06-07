@@ -9,6 +9,9 @@ import UIKit
 
 class ListViewController: UIViewController {
 
+    // MARK: - Private constants
+    private var resultDictArray: [[String: Any]] = [[:]]
+
     // MARK: - Private variables
     private var movieViewModel = MovieViewModel()
     private var favListArray: [Result] = []
@@ -44,6 +47,7 @@ private extension ListViewController {
             }
         }
         setupTableView()
+        loadFavListFromUserDefaults()
     }
 
     func setupnNvigationController() {
@@ -71,6 +75,37 @@ private extension ListViewController {
         }
     }
 
+    func loadFavListFromUserDefaults() {
+        let resultDictArray = UserDefaults.standard.array(forKey: Constants.UserDefaults.favouritesList) as? [[String: Any]]
+        favListArray = resultDictArray?.compactMap { dict -> Result? in
+            guard let id = dict["id"] as? Int,
+                  let title = dict["title"] as? String,
+                  let overview = dict["overview"] as? String else {
+                return nil
+            }
+
+            // Создание объекта Result из словаря
+            let result = Result(
+                adult: dict["adult"] as? Bool ?? false,
+                backdropPath: dict["backdropPath"] as? String ?? "",
+                genreIDS: dict["genreIDS"] as? [Int] ?? [],
+                id: id,
+                originalLanguage: dict["originalLanguage"] as? String ?? "",
+                originalTitle: dict["originalTitle"] as? String ?? "",
+                overview: overview,
+                popularity: dict["popularity"] as? Double ?? 0.0,
+                posterPath: dict["posterPath"] as? String ?? "",
+                releaseDate: dict["releaseDate"] as? String ?? "",
+                title: title,
+                video: dict["video"] as? Bool ?? false,
+                voteAverage: dict["voteAverage"] as? Double ?? 0.0,
+                voteCount: dict["voteCount"] as? Int ?? 0
+            )
+
+            return result
+        } ?? []
+    }
+
 }
 
 
@@ -78,7 +113,7 @@ private extension ListViewController {
 @objc private extension ListViewController {
 
     func cellLongPressed(_ gesture: UILongPressGestureRecognizer) {
-        guard let cell = gesture.view as? UITableViewCell else { return }
+        guard let cell = gesture.view as? ListTableViewCell else { return }
 
         switch gesture.state {
         case .began:
@@ -86,15 +121,20 @@ private extension ListViewController {
             guard let indexPath = tableView.indexPath(for: cell),
                   let item = movieViewModel.movieModel()?.results[indexPath.row] else { return }
 
+            let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+            feedbackGenerator.prepare()
+
             // Добавление или удаление элемента из массива фаворитов
             if favListArray.contains(where: { $0 == item }) {
                 favListArray.removeAll(where: { $0 == item })
+                cell.isFavotires(is: false)
             } else {
                 favListArray.append(item)
+                cell.isFavotires(is: true)
             }
             // Сохранение массива фаворитов
             // Преобразование массива объектов Result в массив словарей
-            let resultDictArray = favListArray.map { result -> [String: Any] in
+            resultDictArray = favListArray.map { result -> [String: Any] in
                 return [
                     "adult": result.adult,
                     "backdropPath": result.backdropPath,
@@ -112,6 +152,7 @@ private extension ListViewController {
                     "voteCount": result.voteCount
                 ]
             }
+            feedbackGenerator.impactOccurred()
             // Сохранение преобразованного массива в UserDefaults
             UserDefaults.standard.set(resultDictArray, forKey: Constants.UserDefaults.favouritesList)
         default:

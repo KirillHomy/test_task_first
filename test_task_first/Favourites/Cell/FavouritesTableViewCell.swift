@@ -45,6 +45,7 @@ private extension FavouritesTableViewCell {
 
     func setupCell() {
         contentView.backgroundColor = .clear
+        selectionStyle = .none
     }
 
 }

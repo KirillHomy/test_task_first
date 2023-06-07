@@ -16,6 +16,7 @@ enum Constants {
         static let list = "List"
         static let favourites = "Favourites"
         static let detail = "Detail"
+        static let favouritesdetail = "Favourites Detail"
     }
 
     enum UserDefaults {

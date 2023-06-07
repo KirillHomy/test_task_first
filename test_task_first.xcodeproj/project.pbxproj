@@ -23,6 +23,8 @@
 		7F531B5E29E32716005D1A45 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F531B5C29E32716005D1A45 /* ListViewController.swift */; };
 		7F531B6129E32754005D1A45 /* List.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F531B6029E32754005D1A45 /* List.storyboard */; };
 		7F531B6329E33570005D1A45 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F531B6229E33570005D1A45 /* MovieViewModel.swift */; };
+		7F75B21C2A30EE2A00E16F44 /* FavouritesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F75B21B2A30EE2A00E16F44 /* FavouritesDetailViewController.swift */; };
+		7F75B21E2A30EE3D00E16F44 /* FavouritesDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F75B21D2A30EE3D00E16F44 /* FavouritesDetail.storyboard */; };
 		7FB976C529EF08AF00F59A3B /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB976C429EF08AF00F59A3B /* DetailsViewController.swift */; };
 		7FB976C729EF08BD00F59A3B /* Details.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FB976C629EF08BD00F59A3B /* Details.storyboard */; };
 		AC4F656591AE7AF597A287FE /* Pods_test_task_first.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84388DEA9E3F9092FF1F5EBB /* Pods_test_task_first.framework */; };
@@ -47,6 +49,8 @@
 		7F531B5C29E32716005D1A45 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		7F531B6029E32754005D1A45 /* List.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = List.storyboard; sourceTree = "<group>"; };
 		7F531B6229E33570005D1A45 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
+		7F75B21B2A30EE2A00E16F44 /* FavouritesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesDetailViewController.swift; sourceTree = "<group>"; };
+		7F75B21D2A30EE3D00E16F44 /* FavouritesDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FavouritesDetail.storyboard; sourceTree = "<group>"; };
 		7FB976C429EF08AF00F59A3B /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		7FB976C629EF08BD00F59A3B /* Details.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Details.storyboard; sourceTree = "<group>"; };
 		84388DEA9E3F9092FF1F5EBB /* Pods_test_task_first.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_test_task_first.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +179,7 @@
 				7F531B5729E31FB1005D1A45 /* List */,
 				7FB976C329EF084D00F59A3B /* Detail */,
 				7F531B5829E31FBB005D1A45 /* Favourites */,
+				7F75B21A2A30EDCC00E16F44 /* FavouritesDetail */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -228,6 +233,15 @@
 				7F531B5A29E31FE7005D1A45 /* ListTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		7F75B21A2A30EDCC00E16F44 /* FavouritesDetail */ = {
+			isa = PBXGroup;
+			children = (
+				7F75B21B2A30EE2A00E16F44 /* FavouritesDetailViewController.swift */,
+				7F75B21D2A30EE3D00E16F44 /* FavouritesDetail.storyboard */,
+			);
+			path = FavouritesDetail;
 			sourceTree = "<group>";
 		};
 		7FB976C329EF084D00F59A3B /* Detail */ = {
@@ -304,6 +318,7 @@
 				7F531B3A29E307D0005D1A45 /* Assets.xcassets in Resources */,
 				7F531B6129E32754005D1A45 /* List.storyboard in Resources */,
 				7FB976C729EF08BD00F59A3B /* Details.storyboard in Resources */,
+				7F75B21E2A30EE3D00E16F44 /* FavouritesDetail.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +380,7 @@
 				7F531B6329E33570005D1A45 /* MovieViewModel.swift in Sources */,
 				7F531B4D29E31011005D1A45 /* MovieModel.swift in Sources */,
 				7F531B5129E3128E005D1A45 /* FavouritesViewController.swift in Sources */,
+				7F75B21C2A30EE2A00E16F44 /* FavouritesDetailViewController.swift in Sources */,
 				7F1D6C5A29EC556600C9DD63 /* ServiceManager.swift in Sources */,
 				7F531B4B29E30AFD005D1A45 /* Style.swift in Sources */,
 				7F531B5E29E32716005D1A45 /* ListViewController.swift in Sources */,

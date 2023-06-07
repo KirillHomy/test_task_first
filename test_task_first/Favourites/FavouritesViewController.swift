@@ -56,6 +56,7 @@ private extension FavouritesViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .clear
+        tableView.separatorInset = .zero
         tableView.register(FavouritesTableViewCell.nib(), forCellReuseIdentifier: "FavouritesTableViewCell")
         view.addSubview(tableView)
     }
@@ -92,8 +93,8 @@ private extension FavouritesViewController {
                     voteCount: dict["voteCount"] as? Int ?? 0
                 )
             }
+            UserDefaults.standard.set(resultDictArray, forKey: Constants.UserDefaults.favouritesList)
             reloadData()
-            // Используйте favListArray далее в вашем коде
         }
     }
 
@@ -115,6 +116,15 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100.0
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let navController = self.navigationController else { return }
+        let storyboard = UIStoryboard(name: "FavouritesDetail", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "FavouritesDetailViewController") as! FavouritesDetailViewController
+        controller.movieModel = favListArray
+        controller.indexPath = indexPath
+        navController.pushViewController(controller, animated: true)
     }
 
 }

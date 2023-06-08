@@ -115,6 +115,28 @@ private extension ListViewController {
     func cellLongPressed(_ gesture: UILongPressGestureRecognizer) {
         guard let cell = gesture.view as? ListTableViewCell else { return }
 
+        if let resultDictArray = UserDefaults.standard.array(forKey: Constants.UserDefaults.favouritesList) as? [[String: Any]] {
+            // Преобразование массива словарей обратно в массив объектов Result
+            favListArray = resultDictArray.compactMap { dict -> Result? in
+                return Result(
+                    adult: dict["adult"] as? Bool ?? false,
+                    backdropPath: dict["backdropPath"] as? String ?? "",
+                    genreIDS: dict["genreIDS"] as? [Int] ?? [],
+                    id: dict["id"] as? Int ?? 0,
+                    originalLanguage: dict["originalLanguage"] as? String ?? "",
+                    originalTitle: dict["originalTitle"] as? String ?? "",
+                    overview: dict["overview"] as? String ?? "",
+                    popularity: dict["popularity"] as? Double ?? 0.0,
+                    posterPath: dict["posterPath"] as? String ?? "",
+                    releaseDate: dict["releaseDate"] as? String ?? "",
+                    title: dict["title"] as? String ?? "",
+                    video: dict["video"] as? Bool ?? false,
+                    voteAverage: dict["voteAverage"] as? Double ?? 0.0,
+                    voteCount: dict["voteCount"] as? Int ?? 0
+                )
+            }
+        }
+
         switch gesture.state {
         case .began:
             // Обработка начала долгого нажатия на ячейку
@@ -127,10 +149,8 @@ private extension ListViewController {
             // Добавление или удаление элемента из массива фаворитов
             if favListArray.contains(where: { $0 == item }) {
                 favListArray.removeAll(where: { $0 == item })
-                cell.isFavotires(is: false)
             } else {
                 favListArray.append(item)
-                cell.isFavotires(is: true)
             }
             // Сохранение массива фаворитов
             // Преобразование массива объектов Result в массив словарей

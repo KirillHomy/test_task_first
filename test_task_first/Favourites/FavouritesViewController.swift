@@ -93,11 +93,63 @@ private extension FavouritesViewController {
                     voteCount: dict["voteCount"] as? Int ?? 0
                 )
             }
+            print("print getFavList \(favListArray.count)")
             UserDefaults.standard.set(resultDictArray, forKey: Constants.UserDefaults.favouritesList)
             reloadData()
         }
     }
 
+    func removeItemFromFavorites(_ item: Result) {
+        if let index = favListArray.firstIndex(where: { $0 == item }) {
+            favListArray.remove(at: index)
+            // Обновление сохраненных данных в UserDefaults
+            let resultDictArray = favListArray.map { result -> [String: Any] in
+                return [
+                    "adult": result.adult,
+                    "backdropPath": result.backdropPath,
+                    "genreIDS": result.genreIDS,
+                    "id": result.id,
+                    "originalLanguage": result.originalLanguage,
+                    "originalTitle": result.originalTitle,
+                    "overview": result.overview,
+                    "popularity": result.popularity,
+                    "posterPath": result.posterPath,
+                    "releaseDate": result.releaseDate,
+                    "title": result.title,
+                    "video": result.video,
+                    "voteAverage": result.voteAverage,
+                    "voteCount": result.voteCount
+                ]
+            }
+            print("print removeItemFromFavorites \(favListArray.count)")
+            UserDefaults.standard.set(resultDictArray, forKey: Constants.UserDefaults.favouritesList)
+            reloadData()
+        }
+    }
+
+}
+
+// MARK: - @objc private extension
+@objc private extension FavouritesViewController {
+
+    func cellLongPressed(_ gesture: UILongPressGestureRecognizer) {
+        guard let cell = gesture.view as? FavouritesTableViewCell else { return }
+
+        switch gesture.state {
+        case .began:
+            // Обработка начала долгого нажатия на ячейку
+            guard let indexPath = tableView.indexPath(for: cell) else { return }
+
+            let item = favListArray[indexPath.row]
+            let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+            feedbackGenerator.prepare()
+
+            removeItemFromFavorites(item)
+            feedbackGenerator.impactOccurred()
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -110,6 +162,8 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavouritesTableViewCell", for: indexPath) as! FavouritesTableViewCell
         let model = favListArray[indexPath.row]
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(cellLongPressed(_:)))
+        cell.addGestureRecognizer(longPressGesture)
         cell.configurationCell(model)
         return cell
     }

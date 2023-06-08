@@ -32,11 +32,6 @@ class ListTableViewCell: UITableViewCell {
         label.text = model.results[index.row].originalTitle
     }
 
-    func isFavotires(is favorites: Bool) {
-        imageMovie.layer.borderColor = favorites ? UIColor.orange.cgColor: UIColor.clear.cgColor
-        imageMovie.layer.borderWidth = 2.0
-    }
-
 }
 
 // MARK: - Private extension

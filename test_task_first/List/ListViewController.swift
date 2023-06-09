@@ -39,6 +39,12 @@ private extension ListViewController {
 
     func setupUI() {
         setupnNvigationController()
+        setCallService()
+        setupTableView()
+        loadFavListFromUserDefaults()
+    }
+
+    func setCallService() {
         movieViewModel.callService { [weak self] isSuccess in
             guard let sSelf = self else { return }
 
@@ -46,8 +52,6 @@ private extension ListViewController {
                 sSelf.reloadData()
             }
         }
-        setupTableView()
-        loadFavListFromUserDefaults()
     }
 
     func setupnNvigationController() {

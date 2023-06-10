@@ -25,7 +25,7 @@ class FavouritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        setupnNvigationController()
+        setupNavigationController()
         getFavList()
     }
 
@@ -35,12 +35,12 @@ class FavouritesViewController: UIViewController {
 private extension FavouritesViewController {
 
     func setupUI() {
-        setupnNvigationController()
+        setupNavigationController()
         setupTableView()
         setupViewColor()
     }
 
-    func setupnNvigationController() {
+    func setupNavigationController() {
         guard let navigationController = navigationController else { return }
         navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController.navigationBar.shadowImage = UIImage()
@@ -93,7 +93,6 @@ private extension FavouritesViewController {
                     voteCount: dict["voteCount"] as? Int ?? 0
                 )
             }
-            print("print getFavList \(favListArray.count)")
             UserDefaults.standard.set(resultDictArray, forKey: Constants.UserDefaults.favouritesList)
             reloadData()
         }
@@ -121,7 +120,6 @@ private extension FavouritesViewController {
                     "voteCount": result.voteCount
                 ]
             }
-            print("print removeItemFromFavorites \(favListArray.count)")
             UserDefaults.standard.set(resultDictArray, forKey: Constants.UserDefaults.favouritesList)
             reloadData()
         }

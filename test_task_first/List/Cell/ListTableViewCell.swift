@@ -56,8 +56,8 @@ private extension ListTableViewCell {
 
         imageMovie.snp.makeConstraints { make in
             make.centerY.equalTo(contentView.snp.centerY)
-            make.leading.equalTo(16)
-            make.width.height.equalTo(90)
+            make.leading.equalTo(20)
+            make.width.height.equalTo(80)
         }
     }
 
@@ -65,9 +65,10 @@ private extension ListTableViewCell {
         contentView.addSubview(label)
         label.font = .boldSystemFont(ofSize: 15)
         label.textColor = .label
+        label.numberOfLines = 2
         label.snp.makeConstraints { make in
             make.centerY.equalTo(imageMovie.snp.centerY)
-            make.leading.equalTo(imageMovie.snp.trailing).offset(16)
+            make.leading.equalTo(imageMovie.snp.trailing).offset(20)
         }
     }
 
